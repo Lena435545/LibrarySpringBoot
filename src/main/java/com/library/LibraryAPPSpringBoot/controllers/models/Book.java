@@ -3,6 +3,7 @@ package com.library.LibraryAPPSpringBoot.controllers.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 

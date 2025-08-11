@@ -1,4 +1,4 @@
-package com.library.LibraryAPPSpringBoot.controllers;
+package com.library.LibraryAPPSpringBoot.controllers.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

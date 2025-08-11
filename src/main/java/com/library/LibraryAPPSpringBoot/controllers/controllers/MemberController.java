@@ -1,4 +1,4 @@
-package com.library.LibraryAPPSpringBoot.controllers;
+package com.library.LibraryAPPSpringBoot.controllers.controllers;
 
 import com.library.LibraryAPPSpringBoot.controllers.models.Member;
 import com.library.LibraryAPPSpringBoot.controllers.services.MemberService;
