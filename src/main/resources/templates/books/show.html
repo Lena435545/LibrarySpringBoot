@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.name}">Book Detail</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/show.css}">
+</head>
+<body>
+
+<div class="item-details-container">
+    <div class="item-image-box">
+        <img class="item-image" alt="Book image"
+             th:src="@{${book.imagePath != null ? '/' + book.imagePath : '/images/default_image.png' }}"/>
+    </div>
+    <div class="item-info-box">
+        <p class="item-title" th:text="${book.name}">name</p>
+        <p class="item-meta" th:text="${book.author} + ', ' + ${book.year}">author, year</p>
+
+        <div class="item-buttons">
+            <form th:action="@{/books/{id}/edit(id=${book.bookId})}">
+                <input class="btn edit-btn" type="submit" value="Edit"/>
+            </form>
+
+            <form th:method="DELETE" th:action="@{/books/{id}(id=${book.bookId})}">
+                <input class="btn delete-btn" type="submit" value="Delete"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="checkout-box checked-out" th:if="${owner}">
+    <p>This book is currently checked out by:</p>
+    <a th:text="${owner.name + ' ' + owner.surname}" th:href="@{/members/{id}(id=${owner.memberId})}">Member
+        link</a>
+    <form class="checkout-form" th:method="PATCH" th:action="@{/books/{id}/release(id=${book.bookId})}">
+        <input class="btn checkout-button" type="submit" value="Return Book"/>
+    </form>
+</div>
+
+<div class="checkout-box available" th:if="${members}">
+    <p>This book is currently available</p>
+    <form class="checkout-form" th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.bookId})}">
+        <label for="member">Assign it to a member:</label>
+        <select th:object="${member}" th:field="*{memberId}" id="member">
+            <option th:each="member : ${members}" th:value="${member.memberId}"
+                    th:text="${member.name + ' ' + member.surname}">
+            </option>
+        </select>
+        <input class="btn checkout-btn" type="submit" value="Check Out Book"/>
+    </form>
+</div>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
+
+</body>
+</html>

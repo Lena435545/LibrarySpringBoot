@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Home</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="icon" type="image/x-icon" href="/images/favicon_looking.png">
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to the Library System</h1>
+    <p class="subtitle">Manage books, films, magazines</p>
+
+    <div class="grid">
+        <a href="/books" class="card">
+            <h2>Books</h2>
+            <p>View and manage books</p>
+        </a>
+        <a href="/films" class="card">
+            <h2>Films</h2>
+            <p>View and manage films</p>
+        </a>
+        <a href="/journals" class="card">
+            <h2>Magazines</h2>
+            <p>View and manage magazines</p>
+        </a>
+    </div>
+    <div class="grid">
+        <a href="/members" class="card">
+            <h2>Members</h2>
+            <p>View and manage members</p>
+        </a>
+    </div>
+    <button id="theme-toggle" class="btn">Switch Theme</button>
+    <script th:src="@{/js/theme-toggle.js}"></script>
+</div>
+
+</body>
+</html>

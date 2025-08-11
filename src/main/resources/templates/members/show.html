@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/show.css}">
+</head>
+<body>
+
+<p th:text="${member.name}">name</p>
+<p th:text="${member.surname}">surname</p>
+<p th:text="${member.email}">email</p><br/>
+
+<form th:action="@{/members/{id}/edit(id=${member.memberId})}">
+    <input class="btn edit-btn" type="submit" value="Edit">
+</form>
+
+<form th:method="DELETE" th:action="@{/members/{id}(id=${member.memberId})}">
+    <input class="btn delete-btn" type="submit" value="Delete"/>
+</form>
+
+<div class="checkout-box" th:if="${books.isEmpty()}">
+    <h2>Books: </h2>
+    <p>This member has not checked out any books</p>
+</div>
+
+<div class="checkout-box" th:if="${!books.isEmpty()}">
+    <h2>Books: </h2>
+    <div class="checkout-list" th:each="book : ${books}">
+        <a th:text="${book.name + ', ' + book.author}"
+           th:href="@{/books/{id}(id=${book.bookId})}">Book</a>
+    </div>
+</div>
+
+<div class="checkout-box" th:if="${films.isEmpty()}">
+    <h2>Films: </h2>
+    <p>This member has not checked out any films</p>
+</div>
+
+<div class="checkout-box" th:if="${!films.isEmpty()}">
+    <h2>Films: </h2>
+    <div class="checkout-list" th:each="film : ${films}">
+        <a th:text="${film.name + ', ' + film.director}"
+           th:href="@{/films/{id}(id=${film.filmId})}">Film</a>
+    </div>
+</div>
+
+<div class="checkout-box" th:if="${journals.isEmpty()}">
+    <h2>Magazines: </h2>
+    <p>This member has not checked out any magazines</p>
+</div>
+
+<div class="checkout-box" th:if="${!journals.isEmpty()}">
+    <h2>Magazines: </h2>
+    <div class="checkout-list" th:each="journal: ${journals}">
+        <a th:text="${journal.name}"
+           th:href="@{/journals/{id}(id=${journal.journalId})}">Journal</a>
+    </div>
+</div>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/new-edit.css}">
+</head>
+<body>
+
+<form class="formular" th:method="PATCH" th:action="@{/books/{id}(id=${book.bookId})}" th:object="${book}"
+enctype="multipart/form-data">
+
+    <label for="name">Edit name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+
+    <label for="author">Edit author: </label>
+    <input type="text" th:field="*{author}" id="author"/>
+    <div class="error" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author error</div>
+
+    <label for="year">Edit year: </label>
+    <input type="text" th:field="*{year}" id="year"/><br/>
+    <div class="error" th:if=" ${#fields.hasErrors('year')}" th:errors="*{year}"></div>
+
+    <label for="image">Upload image</label>
+    <input type="file" name="image" id="image" accept="image/*"/>
+
+    <input class="btn save-btn" type="submit" value="Save">
+</form>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
+
+</body>
+</html>

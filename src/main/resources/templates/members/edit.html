@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit member</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/new-edit.css}">
+</head>
+<body>
+
+<form class="formular" th:method="PATCH" th:action="@{/members/{id}(id=${member.memberId})}" th:object="${member}">
+
+    <label for="name">Edit name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+
+    <label for="surname">Edit surname: </label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+    <div class="error" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
+
+    <label for="email"> Edit E-Mail: </label>
+    <input type="text" th:field="*{email}" id="email"/><br/>
+    <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+
+    <input class="btn save-btn" type="submit" value="Save"/>
+</form>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
+
+</body>
+</html>

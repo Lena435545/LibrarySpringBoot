@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:type="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>New member</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/new-edit.css}">
+</head>
+<body>
+
+<form class="formular" th:method="POST" th:action="@{/members}" th:object="${member}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+
+    <label for="surname">Enter surname: </label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+    <div class="error" th:id="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
+
+    <label for="email">Enter E-Mail: </label>
+    <input type="text" th:field="*{email}" id="email"/><br/>
+    <div class="error" th:if="${#fields.hasErrors('email')}" th:errord="*{email}">Email error</div>
+
+    <input class="btn save-btn" type="submit" value="Save"/>
+</form>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
+
+</body>
+</html>

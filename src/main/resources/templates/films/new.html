@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New film</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/theme-dark.css}" id="theme-link">
+    <link rel="stylesheet" th:href="@{/css/new-edit.css}">
+</head>
+<body>
+
+<form class="formular " th:method="POST" th:action="@{/films/new}" th:object="${film}"
+enctype="multipart/form-data">
+
+    <label for="name">Enter name: </label>
+    <input type="text"  th:field="*{name}" id="name"/>
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+
+    <label for="director">Enter director: </label>
+    <input type="text"  th:field="*{director}" id="director"/>
+    <div class="error" th:if="${#fields.hasErrors('director')}" th:errors="*{director}">Director error</div>
+
+    <label for="year">Enter year: </label>
+    <input type="text" th:field="*{year}" id="year"/>
+    <div class="error" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
+
+    <label for="image">Upload image: </label>
+    <input type="file" name="image" accept="image/*" id="image"/>
+
+    <input class="btn save-btn" type="submit" value="Save"/>
+</form>
+
+<script th:src="@{/js/theme-toggle.js}"></script>
+
+</body>
+</html>
