@@ -2,6 +2,7 @@ package com.library.LibraryAPPSpringBoot.controllers.security;
 
 import com.library.LibraryAPPSpringBoot.controllers.models.Account;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -16,7 +17,7 @@ public class AccountDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority("ROLE_" + account.getRole().name()));
     }
 
     @Override
@@ -26,7 +27,7 @@ public class AccountDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.account.getUserName();
+        return this.account.getUsername();
     }
 
     @Override

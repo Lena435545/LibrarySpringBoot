@@ -11,17 +11,17 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AccountService implements UserDetailsService {
+public class AccountDetailsService implements UserDetailsService {
 
     private final AccountRepository accountRepository;
 
-    public AccountService(AccountRepository accountRepository) {
+    public AccountDetailsService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       Optional<Account> account = accountRepository.findByUserName(username);
+       Optional<Account> account = accountRepository.findByUsername(username);
 
        if(account.isEmpty())
            throw new UsernameNotFoundException("User not found");

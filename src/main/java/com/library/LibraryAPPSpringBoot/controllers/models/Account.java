@@ -22,9 +22,13 @@ public class Account {
     @Column(name="username")
     @NotEmpty(message = "username should not be empty")
     //TODO Validator for unique name
-    private String userName;
+    private String username;
 
     @Column(name="password")
     @NotEmpty(message = "password should not be empty")
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="role")
+    private Role role;
 }
