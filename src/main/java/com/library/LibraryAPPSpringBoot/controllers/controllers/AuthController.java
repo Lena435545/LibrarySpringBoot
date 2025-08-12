@@ -48,4 +48,9 @@ public class AuthController {
         return "redirect:/auth/login";
     }
 
+    @GetMapping("/access_denied")
+    public String denyAccess(){
+        return "auth/access_denied";
+    }
+
 }
