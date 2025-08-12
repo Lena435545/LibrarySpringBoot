@@ -40,7 +40,11 @@ public class SecurityConfig {
                         .failureUrl("/auth/login?error")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll);
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/auth/login")
+                        .permitAll()
+                );
 
         return http.build();
     }
