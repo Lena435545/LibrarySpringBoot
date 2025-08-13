@@ -22,7 +22,10 @@
 
     <div th:if="${param.error}" class="error"> Wrong name or password</div>
 
-</form>
+    <a class="link" th:href="@{/auth/registration}">No account yet? Create one now</a>
+ </form>
 
-</body>
-</html>
+ <script th:src="@{/js/theme-toggle.js}"></script>
+
+ </body>
+ </html>

@@ -20,6 +20,8 @@
     <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
 
     <input class="btn" type="submit" value="Sign up"/>
+
+    <a class="auth-link" th:href="@{/auth/login}">Already have an account? Log in</a>
 </form>
 
 <script th:src="@{/js/theme-toggle.js}"></script>

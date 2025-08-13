@@ -3,12 +3,19 @@ package com.library.LibraryAPPSpringBoot.controllers.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "book")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
     @Id
     @Column(name = "book_id")
@@ -35,86 +42,9 @@ public class Book {
     private String imagePath;
 
     @Column(name="taken_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime takenAt;
 
     @Transient
     private boolean expired;
-
-    public boolean isExpired() {
-        return expired;
-    }
-
-    public void setExpired(boolean expired) {
-        this.expired = expired;
-    }
-
-    public LocalDateTime getTakenAt() {
-        return takenAt;
-    }
-
-    public void setTakenAt(LocalDateTime takenAt) {
-        this.takenAt = takenAt;
-    }
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public Member getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Member owner) {
-        this.owner = owner;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public Book(int bookId, Member owner, String name, String author, int year, String imagePath, LocalDateTime takenAt, boolean expired) {
-        this.bookId = bookId;
-        this.owner = owner;
-        this.name = name;
-        this.author = author;
-        this.year = year;
-        this.imagePath = imagePath;
-        this.takenAt = takenAt;
-        this.expired = expired;
-    }
-
-    public Book() {
-    }
 }

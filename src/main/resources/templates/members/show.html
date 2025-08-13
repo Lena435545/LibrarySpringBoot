@@ -9,9 +9,13 @@
 </head>
 <body>
 
-<p th:text="${member.name}">name</p>
-<p th:text="${member.surname}">surname</p>
-<p th:text="${member.email}">email</p><br/>
+<div>
+    <p th:text="${member.name}">name</p>
+    <p th:text="${member.surname}">surname</p>
+    <p th:text="${member.email}">email</p><br/>
+</div>
+
+
 
 <form th:action="@{/members/{id}/edit(id=${member.memberId})}">
     <input class="btn edit-btn" type="submit" value="Edit">
