@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,6 +72,7 @@ public class FilmService {
     public void release(int id) {
         filmRepository.findById(id).ifPresent(film -> {
             film.setOwner(null);
+            film.setTakenAt(null);
             filmRepository.save(film);
         });
     }
@@ -79,6 +81,7 @@ public class FilmService {
     public void assign(int id, Member selectedMember) {
         filmRepository.findById(id).ifPresent(film -> {
             film.setOwner(selectedMember);
+            film.setTakenAt(LocalDateTime.now());
             filmRepository.save(film);
         });
     }

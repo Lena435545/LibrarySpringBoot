@@ -24,7 +24,8 @@ public class MemberService {
     private final BookRepository bookRepository;
     private final FilmRepository filmRepository;
     private final JournalRepository journalRepository;
-    private static final int EXPIRATION_DAYS = 14;
+    //Using seconds instead of days to allow real-time testing
+    private static final int EXPIRATION_SECONDS = 20;
 
     public MemberService(MemberRepository memberRepository, BookRepository bookRepository, FilmRepository filmRepository, JournalRepository journalRepository) {
         this.memberRepository = memberRepository;
@@ -64,17 +65,33 @@ public class MemberService {
         books.forEach(book ->
                 book.setExpired(
                         book.getTakenAt() != null &&
-                                Duration.between(book.getTakenAt(), LocalDateTime.now()).toDays() > EXPIRATION_DAYS
+                                Duration.between(book.getTakenAt(), LocalDateTime.now()).toSeconds() > EXPIRATION_SECONDS
                 ));
 
         return books;
     }
 
     public List<Film> findFilmsByOwner(Member owner) {
-        return filmRepository.findByOwner(owner);
+        List<Film> films = filmRepository.findByOwner(owner);
+
+        films.forEach(film ->
+                film.setExpired(
+                        film.getTakenAt() != null &&
+                                Duration.between(film.getTakenAt(), LocalDateTime.now()).toSeconds()> EXPIRATION_SECONDS
+                ));
+
+        return films;
     }
 
     public List<Journal> findJournalsByOwner(Member owner) {
+        List<Journal> journals = journalRepository.findByOwner(owner);
+
+        journals.forEach(journal ->
+                journal.setExpired(
+                        journal.getTakenAt() != null &&
+                                Duration.between(journal.getTakenAt(), LocalDateTime.now()).toSeconds() > EXPIRATION_SECONDS
+
+                ));
         return journalRepository.findByOwner(owner);
     }
 }

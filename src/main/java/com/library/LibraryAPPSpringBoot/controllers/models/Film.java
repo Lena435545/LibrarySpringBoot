@@ -3,9 +3,19 @@ package com.library.LibraryAPPSpringBoot.controllers.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "film")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Film {
     @Id
     @Column(name = "film_id")
@@ -31,63 +41,11 @@ public class Film {
     @Column(name = "image_path")
     private String imagePath;
 
-    public int getFilmId() {
-        return filmId;
-    }
+    @Column(name="taken_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime takenAt;
 
-    public void setFilmId(int filmId) {
-        this.filmId = filmId;
-    }
+    @Transient
+    private boolean expired;
 
-    public Member getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Member owner) {
-        this.owner = owner;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public Film(int filmId, Member owner, String name, String director, int year, String imagePath) {
-        this.filmId = filmId;
-        this.owner = owner;
-        this.name = name;
-        this.director = director;
-        this.year = year;
-        this.imagePath = imagePath;
-    }
-
-    public Film() {
-    }
 }

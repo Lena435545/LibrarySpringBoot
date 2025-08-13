@@ -120,8 +120,7 @@
 }
 
 .expired-link {
-    color: red !important;
-    font-weight: bold;
+    color: var(--status-red) !important;
     animation: blink 3s infinite;
 }
 

@@ -16,7 +16,6 @@
 </div>
 
 
-
 <form th:action="@{/members/{id}/edit(id=${member.memberId})}">
     <input class="btn edit-btn" type="submit" value="Edit">
 </form>
@@ -35,8 +34,7 @@
     <div class="checkout-list" th:each="book : ${books}">
         <a th:text="${book.name + ', ' + book.author}"
            th:href="@{/books/{id}(id=${book.bookId})}"
-           th:classappend="${book.isExpired() ? 'expired-link' : ''}"
-        >Book</a>
+           th:classappend="${book.isExpired() ? 'expired-link' : ''}">Book</a>
 
     </div>
 </div>
@@ -50,7 +48,8 @@
     <h2>Films: </h2>
     <div class="checkout-list" th:each="film : ${films}">
         <a th:text="${film.name + ', ' + film.director}"
-           th:href="@{/films/{id}(id=${film.filmId})}">Film</a>
+           th:href="@{/films/{id}(id=${film.filmId})}"
+           th:classappend="${film.isExpired() ? 'expired-link' : ''}">Film</a>
     </div>
 </div>
 
@@ -63,7 +62,8 @@
     <h2>Magazines: </h2>
     <div class="checkout-list" th:each="journal: ${journals}">
         <a th:text="${journal.name}"
-           th:href="@{/journals/{id}(id=${journal.journalId})}">Journal</a>
+           th:href="@{/journals/{id}(id=${journal.journalId})}"
+        th:classappend="${journal.isExpired() ? 'expired-link' : ''}">Journal</a>
     </div>
 </div>
 

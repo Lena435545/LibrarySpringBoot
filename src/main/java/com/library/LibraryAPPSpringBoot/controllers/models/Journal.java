@@ -5,9 +5,19 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "journal")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Journal {
     @Id
     @Column(name = "journal_id")
@@ -38,72 +48,10 @@ public class Journal {
     @Column(name = "image_path")
     private String imagePath;
 
-    public Journal() {
-    }
+    @Column(name = "taken_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime takenAt;
 
-    public Journal(int journalId, Member owner, String name, String thematic, int month, int year, String imagePath) {
-        this.journalId = journalId;
-        this.owner = owner;
-        this.name = name;
-        this.thematic = thematic;
-        this.month = month;
-        this.year = year;
-        this.imagePath = imagePath;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public int getJournalId() {
-        return journalId;
-    }
-
-    public void setJournalId(int journalId) {
-        this.journalId = journalId;
-    }
-
-    public Member getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Member owner) {
-        this.owner = owner;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getThematic() {
-        return thematic;
-    }
-
-    public void setThematic(String thematic) {
-        this.thematic = thematic;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
+    @Transient
+    private boolean expired;
 }
