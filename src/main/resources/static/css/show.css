@@ -43,7 +43,7 @@
     display: inline-block;
     font-size: 18px;
     color: var(--primary);
-    text-decoration: underline;
+    text-decoration: none;
     font-weight: 500;
     margin-bottom: 12px;
 }
@@ -117,4 +117,15 @@
 .item-buttons {
     display: flex;
     gap: 1rem;
+}
+
+.expired-link {
+    color: red !important;
+    font-weight: bold;
+    animation: blink 3s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
 }

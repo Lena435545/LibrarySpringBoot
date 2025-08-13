@@ -34,7 +34,10 @@
     <h2>Books: </h2>
     <div class="checkout-list" th:each="book : ${books}">
         <a th:text="${book.name + ', ' + book.author}"
-           th:href="@{/books/{id}(id=${book.bookId})}">Book</a>
+           th:href="@{/books/{id}(id=${book.bookId})}"
+           th:classappend="${book.isExpired() ? 'expired-link' : ''}"
+        >Book</a>
+
     </div>
 </div>
 

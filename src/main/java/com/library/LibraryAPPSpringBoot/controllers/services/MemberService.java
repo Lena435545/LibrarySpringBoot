@@ -11,6 +11,8 @@ import com.library.LibraryAPPSpringBoot.controllers.repositories.MemberRepositor
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +24,7 @@ public class MemberService {
     private final BookRepository bookRepository;
     private final FilmRepository filmRepository;
     private final JournalRepository journalRepository;
+    private static final int EXPIRATION_DAYS = 14;
 
     public MemberService(MemberRepository memberRepository, BookRepository bookRepository, FilmRepository filmRepository, JournalRepository journalRepository) {
         this.memberRepository = memberRepository;
@@ -56,7 +59,15 @@ public class MemberService {
     }
 
     public List<Book> findBooksByOwner(Member owner) {
-        return bookRepository.findByOwner(owner);
+        List<Book> books = bookRepository.findByOwner(owner);
+
+        books.forEach(book ->
+                book.setExpired(
+                        book.getTakenAt() != null &&
+                                Duration.between(book.getTakenAt(), LocalDateTime.now()).toDays() > EXPIRATION_DAYS
+                ));
+
+        return books;
     }
 
     public List<Film> findFilmsByOwner(Member owner) {
