@@ -1,8 +1,9 @@
 package com.library;
 
-import com.library.models.Film;
-import com.library.models.Member;
-import com.library.repositories.FilmRepository;
+import com.library.LibraryAPPSpringBoot.models.Film;
+import com.library.LibraryAPPSpringBoot.models.Member;
+import com.library.LibraryAPPSpringBoot.repositories.FilmRepository;
+import com.library.LibraryAPPSpringBoot.services.FilmService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,14 +98,14 @@ public class FilmServiceTest {
     }
 
     @Test
-    void delete_WhenFilmExists_RemovesFilmById(){
+    void delete_WhenFilmExists_RemovesFilmById() {
         filmService.delete(filmId);
 
         verify(filmRepository, times(1)).deleteById(filmId);
     }
 
     @Test
-    void getFilmOwner_WhenFilmHasOwner_ReturnsMember(){
+    void getFilmOwner_WhenFilmHasOwner_ReturnsMember() {
         Member member = new Member();
         Film film = new Film();
         film.setOwner(member);
@@ -117,7 +118,7 @@ public class FilmServiceTest {
     }
 
     @Test
-    void getFilmOwner_WhenFilmHasNoOwner_ReturnsEmpty(){
+    void getFilmOwner_WhenFilmHasNoOwner_ReturnsEmpty() {
         Film film = new Film();
         when(filmRepository.findById(filmId)).thenReturn(Optional.of(film));
 
@@ -127,7 +128,7 @@ public class FilmServiceTest {
     }
 
     @Test
-    void getFilmOwner_WhenFilmNotFound_ReturnsEmpty(){
+    void getFilmOwner_WhenFilmNotFound_ReturnsEmpty() {
         when(filmRepository.findById(nfFilmId)).thenReturn(Optional.empty());
 
         Optional<Member> result = filmService.getFilmOwner(nfFilmId);
@@ -136,7 +137,7 @@ public class FilmServiceTest {
     }
 
     @Test
-    void assign_WhenFilmExists_SetsOwnerAndSavesFilm(){
+    void assign_WhenFilmExists_SetsOwnerAndSavesFilm() {
         Film film = new Film();
         Member member = new Member();
         when(filmRepository.findById(filmId)).thenReturn(Optional.of(film));
@@ -148,7 +149,7 @@ public class FilmServiceTest {
     }
 
     @Test
-    void release_WhenFilmHasOwner_removesOwner(){
+    void release_WhenFilmHasOwner_removesOwner() {
         Member member = new Member();
         Film film = new Film();
         film.setOwner(member);
@@ -159,29 +160,6 @@ public class FilmServiceTest {
         assertNull(film.getOwner());
         verify(filmRepository, times(1)).save(film);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

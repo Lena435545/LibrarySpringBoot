@@ -1,8 +1,9 @@
 package com.library;
 
-import com.library.models.Journal;
-import com.library.models.Member;
-import com.library.repositories.JournalRepository;
+import com.library.LibraryAPPSpringBoot.models.Journal;
+import com.library.LibraryAPPSpringBoot.models.Member;
+import com.library.LibraryAPPSpringBoot.repositories.JournalRepository;
+import com.library.LibraryAPPSpringBoot.services.JournalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,7 @@ public class JournalServiceTest {
     private int nfJournalId;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         journalRepository = mock(JournalRepository.class);
         journalService = new JournalService(journalRepository);
         journalId = 1;
@@ -28,7 +29,7 @@ public class JournalServiceTest {
     }
 
     @Test
-    void findAll_ReturnsListOfJournals(){
+    void findAll_ReturnsListOfJournals() {
         Journal journal1 = new Journal();
         journal1.setName("Journal1");
         Journal journal2 = new Journal();
@@ -43,7 +44,7 @@ public class JournalServiceTest {
     }
 
     @Test
-    void findById_WhenJournalExists_ReturnsJournal(){
+    void findById_WhenJournalExists_ReturnsJournal() {
         Journal journal = new Journal();
         journal.setJournalId(journalId);
         journal.setName("TestJournal");
@@ -58,7 +59,7 @@ public class JournalServiceTest {
     }
 
     @Test
-    void findById_WhenJournalNotFound_ReturnsNull(){
+    void findById_WhenJournalNotFound_ReturnsNull() {
         when(journalRepository.findById(nfJournalId)).thenReturn(Optional.empty());
 
         Journal result = journalService.findById(nfJournalId);
@@ -68,7 +69,7 @@ public class JournalServiceTest {
     }
 
     @Test
-    void save_WhenImageFileIsEmpty_SavesJournal(){
+    void save_WhenImageFileIsEmpty_SavesJournal() {
         Journal journal = new Journal();
         MultipartFile file = mock(MultipartFile.class);
         when(file.isEmpty()).thenReturn(true);
@@ -79,7 +80,7 @@ public class JournalServiceTest {
     }
 
     @Test
-    void update_WhenImageFileIsEmpty_CopiesImagePathAndSavesJournal(){
+    void update_WhenImageFileIsEmpty_CopiesImagePathAndSavesJournal() {
         Journal existingJournal = new Journal();
         existingJournal.setImagePath("images/existing.jpg");
         Journal updatedJournal = new Journal();
@@ -96,14 +97,14 @@ public class JournalServiceTest {
     }
 
     @Test
-    void delete_WhenJournalExists_RemovesItById(){
+    void delete_WhenJournalExists_RemovesItById() {
         journalService.delete(journalId);
 
         verify(journalRepository, times(1)).deleteById(journalId);
     }
 
     @Test
-    void getJournalOwner_WhenJournalHasOwner_ReturnsMember(){
+    void getJournalOwner_WhenJournalHasOwner_ReturnsMember() {
         Member member = new Member();
         Journal journal = new Journal();
         journal.setOwner(member);
@@ -116,7 +117,7 @@ public class JournalServiceTest {
     }
 
     @Test
-    void getJournalOwner_WhenJournalHasNoOwner_ReturnsEmpty(){
+    void getJournalOwner_WhenJournalHasNoOwner_ReturnsEmpty() {
         Journal journal = new Journal();
         when(journalRepository.findById(journalId)).thenReturn(Optional.of(journal));
 
@@ -126,7 +127,7 @@ public class JournalServiceTest {
     }
 
     @Test
-    void getJournalOwner_WhenBookNotFound_ReturnsEmpty(){
+    void getJournalOwner_WhenBookNotFound_ReturnsEmpty() {
         when(journalRepository.findById(nfJournalId)).thenReturn(Optional.empty());
 
         Optional<Member> result = journalService.getJournalOwner(nfJournalId);
@@ -135,7 +136,7 @@ public class JournalServiceTest {
     }
 
     @Test
-    void assign_WhenJournalExists_SetsOwnerAndSavesJournal(){
+    void assign_WhenJournalExists_SetsOwnerAndSavesJournal() {
         Journal journal = new Journal();
         Member member = new Member();
         when(journalRepository.findById(journalId)).thenReturn(Optional.of(journal));
@@ -147,7 +148,7 @@ public class JournalServiceTest {
     }
 
     @Test
-    void release_WhenJournalHasOwner_RemovesOwner(){
+    void release_WhenJournalHasOwner_RemovesOwner() {
         Member member = new Member();
         Journal journal = new Journal();
         journal.setOwner(member);
@@ -158,10 +159,6 @@ public class JournalServiceTest {
         assertNull(journal.getOwner());
         verify(journalRepository, times(1)).save(journal);
     }
-
-
-
-
 
 
 }
