@@ -14,7 +14,7 @@
     <label for="sortBy">Sort by: </label>
     <select id="sortBy" name="sortBy">
         <option value="NAME" th:selected="${currentSortBy == 'NAME'}">Name</option>
-        <option value="AUTHOR" th:select="${currentSortBy == 'AUTHOR'}">Author</option>
+        <option value="AUTHOR" th:selected="${currentSortBy == 'AUTHOR'}">Author</option>
         <option value="YEAR" th:selected="${currentSortBy == 'YEAR'}">Year</option>
         <option value="CREATED_AT" th:selected="${currentSortBy =='CREATED_AT'}">Created at</option>
     </select>
