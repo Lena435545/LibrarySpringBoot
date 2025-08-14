@@ -7,22 +7,22 @@ public enum BookSortField {
     YEAR("year"),
     CREATED_AT("createdAt");
 
-    private final String prop;
+    private final String dbField;
 
-    BookSortField(String prop) {
-        this.prop = prop;
+    BookSortField(String dbField) {
+        this.dbField = dbField;
     }
 
-    public String prop() {
-        return prop;
+    public String getDbField() {
+        return dbField;
     }
 
-    public static String resolve(String input) {
-        for (BookSortField f : values()) {
-            if (f.name().equalsIgnoreCase(input)) {
-                return f.prop();
+    public static String resolve(String sortBy) {
+        for (BookSortField field : values()) {
+            if (field.name().equalsIgnoreCase(sortBy)) {
+                return field.getDbField();
             }
         }
-        return NAME.prop();
+        return NAME.getDbField();
     }
 }

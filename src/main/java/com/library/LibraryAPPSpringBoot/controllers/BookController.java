@@ -35,7 +35,6 @@ public class BookController {
                         @RequestParam(value = "dir", defaultValue = "ASC") String dir) {
 
         String sortProp = BookSortField.resolve(sortBy);
-
         Direction direction = "DESC".equalsIgnoreCase(dir) ? Direction.DESC : Direction.ASC;
 
         model.addAttribute("books", bookService.findAll(Sort.by(direction, sortProp)));

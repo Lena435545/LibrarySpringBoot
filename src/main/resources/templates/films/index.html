@@ -9,10 +9,29 @@
 </head>
 <body>
 <h1>List of films</h1>
+<form method="GET" th:action="@{/films}">
+    <label for="sortBy">Sort By:</label>
+    <select id="sortBy" name="sortBy">
+        <option value="NAME" th:selected="${currentSortBy == 'NAME'}">Name</option>
+        <option value="DIRECTOR" th:selected="${currentSortBy == 'DIRECTOR'}">Director</option>
+        <option value="YEAR" th:selected="${currentSortBy == 'YEAR'}">Year</option>
+        <option value="CREATED_AT" th:selected="${currentSortBy == 'CREATED_AT'}">Created At</option>
+    </select>
+
+    <label for="dir">Direction: </label>
+    <select id="dir" name="dir">
+        <option value="ASC" th:selected="${currentDir == 'ASC'}">Ascending</option>
+        <option value="DESC" th:selected="${currentDir == 'DESC'}">Descending</option>
+    </select>
+
+    <input type="submit" value="Apply">
+</form>
+
 
 <div class="item-list">
     <div class="item-card" th:each="film : ${films}">
-        <img alt="Film image" th:src="@{${film.imagePath != null ? '/' + film.imagePath : '/images/default_image.png'}}">
+        <img alt="Film image"
+             th:src="@{${film.imagePath != null ? '/' + film.imagePath : '/images/default_image.png'}}">
         <div class="item-info">
             <p th:text="${film.name}"></p>
             <p th:text="${film.director} + ', ' + ${film.year}">Author, Year</p>
@@ -21,9 +40,9 @@
     </div>
 </div>
 
-    <form th:action="@{/films/new}">
-        <input class="btn create-btn" type="submit" value="Create"/>
-    </form>
+<form th:action="@{/films/new}">
+    <input class="btn create-btn" type="submit" value="Create"/>
+</form>
 
 <script th:src="@{/js/theme-toggle.js}"></script>
 

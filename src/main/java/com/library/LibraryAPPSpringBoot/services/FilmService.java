@@ -5,6 +5,7 @@ import com.library.LibraryAPPSpringBoot.models.Member;
 import com.library.LibraryAPPSpringBoot.repositories.FilmRepository;
 import com.library.LibraryAPPSpringBoot.utils.ImageUploadUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,8 +29,8 @@ public class FilmService {
         this.filmRepository = filmRepository;
     }
 
-    public List<Film> findAll() {
-        return filmRepository.findAll();
+    public List<Film> findAll(Sort sort) {
+        return filmRepository.findAll(sort);
     }
 
     public Film findById(int id) {
