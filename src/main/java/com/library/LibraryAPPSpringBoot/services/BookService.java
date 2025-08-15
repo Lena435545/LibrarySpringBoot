@@ -2,6 +2,7 @@ package com.library.LibraryAPPSpringBoot.services;
 
 import com.library.LibraryAPPSpringBoot.models.Book;
 import com.library.LibraryAPPSpringBoot.models.Member;
+import com.library.LibraryAPPSpringBoot.models.enums.BookSearchField;
 import com.library.LibraryAPPSpringBoot.repositories.BookRepository;
 import com.library.LibraryAPPSpringBoot.utils.ImageUploadUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +35,14 @@ public class BookService {
     public Book findById(int id) {
         Optional<Book> foundBook = bookRepository.findById(id);
         return foundBook.orElse(null);
+    }
+
+    public List<Book> search(String query, BookSearchField field) {
+
+        return switch (field) {
+            case TITLE -> bookRepository.findByNameStartingWithIgnoreCase(query.trim());
+            case AUTHOR -> bookRepository.findByAuthorStartingWithIgnoreCase(query.trim());
+        };
     }
 
     @Transactional

@@ -27,6 +27,18 @@
     <input type="submit" value="Apply"/>
 </form>
 
+<form>
+    <label for="searchField">Search by: </label>
+    <select id="searchField" name="searchField">
+        <option value="TITLE" th:selected="${searchField == 'TITLE'}">Title</option>
+        <option value="AUTHOR" th:selected="${searchField == 'AUTHOR'}">Author</option>
+    </select>
+    <input type="text" id="query" name="query" placeholder="Type here ..." th:value="${search}"/>
+    <input type="submit" value="Search"/>
+    <a th:href="@{/books}">Reset</a>
+
+</form>
+
 <div class="item-list">
     <div class="item-card" th:each="book : ${books}">
         <img alt="Book image"

@@ -2,6 +2,7 @@ package com.library.LibraryAPPSpringBoot.controllers;
 
 import com.library.LibraryAPPSpringBoot.models.Book;
 import com.library.LibraryAPPSpringBoot.models.Member;
+import com.library.LibraryAPPSpringBoot.models.enums.BookSearchField;
 import com.library.LibraryAPPSpringBoot.models.enums.BookSortField;
 import com.library.LibraryAPPSpringBoot.services.BookService;
 import com.library.LibraryAPPSpringBoot.services.MemberService;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.data.domain.Sort.Direction;
@@ -31,11 +33,20 @@ public class BookController {
     @GetMapping
     public String index(Model model,
                         @RequestParam(value = "sortOption", defaultValue = "NAME") BookSortField sortOption,
-                        @RequestParam(value = "dir", defaultValue = "ASC") Direction dir) {
+                        @RequestParam(value = "dir", defaultValue = "ASC") Direction dir,
+                        @RequestParam(value = "query", required = false) String query,
+                        @RequestParam(value= "searchField", defaultValue = "TITLE") BookSearchField searchField) {
+        List<Book> books;
+        if (query == null || query.isBlank()) {
+            books = bookService.findAll(sortOption.toSort(dir));
+        } else {
+            books = bookService.search(query, searchField);
+        }
 
-        model.addAttribute("books", bookService.findAll(sortOption.toSort(dir)));
+        model.addAttribute("books", books);
         model.addAttribute("currentSortBy", sortOption.name());
         model.addAttribute("currentDir", dir.isAscending() ? "ASC" : "DESC");
+        model.addAttribute("search", query);
         return ("books/index");
     }
 
@@ -101,4 +112,5 @@ public class BookController {
         bookService.assign(id, selectedMember);
         return "redirect:/books/" + id;
     }
+
 }
