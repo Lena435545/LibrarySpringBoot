@@ -12,8 +12,8 @@
 <h1>List of magazines</h1>
 
 <form method="GET" th:action="@{/journals}">
-    <label for="sortBy">Sorting by</label>
-    <select id="sortBy" name="sortBy">
+    <label for="sortOption">Sorting by</label>
+    <select id="sortOption" name="sortOption">
         <option value="NAME" th:selected="${currentSortBy == 'NAME'}">Name</option>
         <option value="THEMATIC" th:selected="${currentSortBy == 'THEMATIC'}">Thematic</option>
         <option value="DATE" th:selected="${currentSortBy == 'DATE'}">Date</option>

@@ -2,7 +2,7 @@ package com.library.LibraryAPPSpringBoot.controllers;
 
 import com.library.LibraryAPPSpringBoot.models.Journal;
 import com.library.LibraryAPPSpringBoot.models.Member;
-import com.library.LibraryAPPSpringBoot.models.enums.JournalSort;
+import com.library.LibraryAPPSpringBoot.models.enums.JournalSortField;
 import com.library.LibraryAPPSpringBoot.services.JournalService;
 import com.library.LibraryAPPSpringBoot.services.MemberService;
 import jakarta.validation.Valid;
@@ -29,10 +29,10 @@ public class JournalController {
 
     @GetMapping
     public String index(Model model,
-                        @RequestParam(value = "sortBy", defaultValue = "NAME") JournalSort sortBy,
+                        @RequestParam(value = "sortOption", defaultValue = "NAME") JournalSortField sortOption,
                         @RequestParam(value = "dir", defaultValue = "ASC") Direction direction) {
-        model.addAttribute("journals", journalService.findAll(sortBy.toSort(direction)));
-        model.addAttribute("currentSortBy", sortBy.name());
+        model.addAttribute("journals", journalService.findAll(sortOption.toSort(direction)));
+        model.addAttribute("currentSortBy", sortOption.name());
         model.addAttribute("currentDir", direction.isAscending() ? "ASC" : "DESC");
         return ("journals/index");
     }

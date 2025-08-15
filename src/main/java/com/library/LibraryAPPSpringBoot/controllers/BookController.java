@@ -2,11 +2,10 @@ package com.library.LibraryAPPSpringBoot.controllers;
 
 import com.library.LibraryAPPSpringBoot.models.Book;
 import com.library.LibraryAPPSpringBoot.models.Member;
-import com.library.LibraryAPPSpringBoot.models.enums.BookSort;
+import com.library.LibraryAPPSpringBoot.models.enums.BookSortField;
 import com.library.LibraryAPPSpringBoot.services.BookService;
 import com.library.LibraryAPPSpringBoot.services.MemberService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,15 +30,12 @@ public class BookController {
 
     @GetMapping
     public String index(Model model,
-                        @RequestParam(value = "sortBy", defaultValue = "NAME") String sortBy,
-                        @RequestParam(value = "dir", defaultValue = "ASC") String dir) {
+                        @RequestParam(value = "sortOption", defaultValue = "NAME") BookSortField sortOption,
+                        @RequestParam(value = "dir", defaultValue = "ASC") Direction dir) {
 
-        String sortProp = BookSort.resolve(sortBy);
-        Direction direction = "DESC".equalsIgnoreCase(dir) ? Direction.DESC : Direction.ASC;
-
-        model.addAttribute("books", bookService.findAll(Sort.by(direction, sortProp)));
-        model.addAttribute("currentSortBy", sortBy.toUpperCase());
-        model.addAttribute("currentDir", direction.isAscending() ? "ASC" : "DESC");
+        model.addAttribute("books", bookService.findAll(sortOption.toSort(dir)));
+        model.addAttribute("currentSortBy", sortOption.name());
+        model.addAttribute("currentDir", dir.isAscending() ? "ASC" : "DESC");
         return ("books/index");
     }
 

@@ -10,8 +10,8 @@
 <body>
 <h1>List of films</h1>
 <form method="GET" th:action="@{/films}">
-    <label for="sortBy">Sort By:</label>
-    <select id="sortBy" name="sortBy">
+    <label for="sortOption">Sort By:</label>
+    <select id="sortOption" name="sortOption">
         <option value="NAME" th:selected="${currentSortBy == 'NAME'}">Name</option>
         <option value="DIRECTOR" th:selected="${currentSortBy == 'DIRECTOR'}">Director</option>
         <option value="YEAR" th:selected="${currentSortBy == 'YEAR'}">Year</option>

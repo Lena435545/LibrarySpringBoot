@@ -2,24 +2,25 @@ package com.library.LibraryAPPSpringBoot.models.enums;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 
 import java.util.List;
 
-public enum JournalSort {
+public enum JournalSortField {
     NAME("name"),
     THEMATIC("thematic"),
     DATE("year", "month"),
     CREATED_AT("createdAt");
 
-    private final List<String> dbFields;
+    private final List<String> fields;
 
-    JournalSort(String ... dbFields){
-      this.dbFields = List.of(dbFields);
+    JournalSortField(String ... fields){
+      this.fields = List.of(fields);
     }
 
     public Sort toSort(Direction dir) {
-        return Sort.by(dbFields.stream()
-                .map(field -> new Sort.Order(dir, field))
+        return Sort.by(fields.stream()
+                .map(field -> new Order(dir, field))
                 .toList());
     }
 }

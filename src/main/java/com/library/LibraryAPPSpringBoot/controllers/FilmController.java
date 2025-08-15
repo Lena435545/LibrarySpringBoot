@@ -2,11 +2,10 @@ package com.library.LibraryAPPSpringBoot.controllers;
 
 import com.library.LibraryAPPSpringBoot.models.Film;
 import com.library.LibraryAPPSpringBoot.models.Member;
-import com.library.LibraryAPPSpringBoot.models.enums.FilmSort;
+import com.library.LibraryAPPSpringBoot.models.enums.FilmSortField;
 import com.library.LibraryAPPSpringBoot.repositories.MemberRepository;
 import com.library.LibraryAPPSpringBoot.services.FilmService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,11 +30,11 @@ public class FilmController {
 
     @GetMapping
     public String index(Model model,
-                        @RequestParam(value = "sortBy", defaultValue = "NAME") FilmSort sortBy,
+                        @RequestParam(value = "sortOption", defaultValue = "NAME") FilmSortField sortOption,
                         @RequestParam(value = "dir", defaultValue = "ASC") Direction dir) {
 
-        model.addAttribute("films", filmService.findAll(Sort.by(dir, sortBy.getDbField())));
-        model.addAttribute("currentSortBy", sortBy.name());
+        model.addAttribute("films", filmService.findAll(sortOption.toSort(dir)));
+        model.addAttribute("currentSortBy", sortOption.name());
         model.addAttribute("currentDir", dir.isAscending() ? "ASC" : "DESC");
         return "films/index";
     }
