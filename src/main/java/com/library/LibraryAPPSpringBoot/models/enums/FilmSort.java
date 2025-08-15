@@ -1,6 +1,9 @@
 package com.library.LibraryAPPSpringBoot.models.enums;
 
-public enum FilmSortField {
+import lombok.Getter;
+
+@Getter
+public enum FilmSort {
     NAME("name"),
     DIRECTOR("director"),
     YEAR("year"),
@@ -8,13 +11,10 @@ public enum FilmSortField {
 
     private final String dbField;
 
-    FilmSortField(String dbField) {
+    FilmSort(String dbField) {
         this.dbField = dbField;
     }
 
-    public String getDbField() {
-        return dbField;
-    }
 }
 
 

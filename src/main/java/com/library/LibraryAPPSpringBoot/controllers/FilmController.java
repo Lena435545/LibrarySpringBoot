@@ -2,7 +2,7 @@ package com.library.LibraryAPPSpringBoot.controllers;
 
 import com.library.LibraryAPPSpringBoot.models.Film;
 import com.library.LibraryAPPSpringBoot.models.Member;
-import com.library.LibraryAPPSpringBoot.models.enums.FilmSortField;
+import com.library.LibraryAPPSpringBoot.models.enums.FilmSort;
 import com.library.LibraryAPPSpringBoot.repositories.MemberRepository;
 import com.library.LibraryAPPSpringBoot.services.FilmService;
 import jakarta.validation.Valid;
@@ -31,7 +31,7 @@ public class FilmController {
 
     @GetMapping
     public String index(Model model,
-                        @RequestParam(value = "sortBy", defaultValue = "NAME") FilmSortField sortBy,
+                        @RequestParam(value = "sortBy", defaultValue = "NAME") FilmSort sortBy,
                         @RequestParam(value = "dir", defaultValue = "ASC") Direction dir) {
 
         model.addAttribute("films", filmService.findAll(Sort.by(dir, sortBy.getDbField())));

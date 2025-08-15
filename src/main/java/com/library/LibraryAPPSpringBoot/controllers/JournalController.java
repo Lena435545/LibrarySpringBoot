@@ -2,9 +2,11 @@ package com.library.LibraryAPPSpringBoot.controllers;
 
 import com.library.LibraryAPPSpringBoot.models.Journal;
 import com.library.LibraryAPPSpringBoot.models.Member;
+import com.library.LibraryAPPSpringBoot.models.enums.JournalSort;
 import com.library.LibraryAPPSpringBoot.services.JournalService;
 import com.library.LibraryAPPSpringBoot.services.MemberService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,8 +28,12 @@ public class JournalController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("journals", journalService.findAll());
+    public String index(Model model,
+                        @RequestParam(value = "sortBy", defaultValue = "NAME") JournalSort sortBy,
+                        @RequestParam(value = "dir", defaultValue = "ASC") Direction direction) {
+        model.addAttribute("journals", journalService.findAll(sortBy.toSort(direction)));
+        model.addAttribute("currentSortBy", sortBy.name());
+        model.addAttribute("currentDir", direction.isAscending() ? "ASC" : "DESC");
         return ("journals/index");
     }
 

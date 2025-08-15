@@ -2,7 +2,7 @@ package com.library.LibraryAPPSpringBoot.controllers;
 
 import com.library.LibraryAPPSpringBoot.models.Book;
 import com.library.LibraryAPPSpringBoot.models.Member;
-import com.library.LibraryAPPSpringBoot.models.enums.BookSortField;
+import com.library.LibraryAPPSpringBoot.models.enums.BookSort;
 import com.library.LibraryAPPSpringBoot.services.BookService;
 import com.library.LibraryAPPSpringBoot.services.MemberService;
 import jakarta.validation.Valid;
@@ -34,7 +34,7 @@ public class BookController {
                         @RequestParam(value = "sortBy", defaultValue = "NAME") String sortBy,
                         @RequestParam(value = "dir", defaultValue = "ASC") String dir) {
 
-        String sortProp = BookSortField.resolve(sortBy);
+        String sortProp = BookSort.resolve(sortBy);
         Direction direction = "DESC".equalsIgnoreCase(dir) ? Direction.DESC : Direction.ASC;
 
         model.addAttribute("books", bookService.findAll(Sort.by(direction, sortProp)));

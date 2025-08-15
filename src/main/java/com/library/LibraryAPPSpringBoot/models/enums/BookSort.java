@@ -1,7 +1,10 @@
 package com.library.LibraryAPPSpringBoot.models.enums;
 
 
-public enum BookSortField {
+import lombok.Getter;
+
+@Getter
+public enum BookSort {
     NAME("name"),
     AUTHOR("author"),
     YEAR("year"),
@@ -9,16 +12,12 @@ public enum BookSortField {
 
     private final String dbField;
 
-    BookSortField(String dbField) {
+    BookSort(String dbField) {
         this.dbField = dbField;
     }
 
-    public String getDbField() {
-        return dbField;
-    }
-
     public static String resolve(String sortBy) {
-        for (BookSortField field : values()) {
+        for (BookSort field : values()) {
             if (field.name().equalsIgnoreCase(sortBy)) {
                 return field.getDbField();
             }

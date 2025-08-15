@@ -5,6 +5,7 @@ import com.library.LibraryAPPSpringBoot.models.Member;
 import com.library.LibraryAPPSpringBoot.repositories.JournalRepository;
 import com.library.LibraryAPPSpringBoot.utils.ImageUploadUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,8 +28,8 @@ public class JournalService {
         this.journalRepository = journalRepository;
     }
 
-    public List<Journal> findAll() {
-        return journalRepository.findAll();
+    public List<Journal> findAll(Sort sort) {
+        return journalRepository.findAll(sort);
     }
 
     public Journal findById(int id) {
